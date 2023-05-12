@@ -1,0 +1,9 @@
+# Modules
+**/node_modules
+
+# Build
+**/dist
+**/tsconfig.tsbuildinfo
+
+# # Testings
+# **/test
