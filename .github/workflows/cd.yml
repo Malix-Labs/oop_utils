@@ -27,7 +27,7 @@ jobs:
         run: npm ci
         
       - name: Publish Package to NPM
-        run: npm publish -provenance
+        run: npm publish --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           
@@ -37,6 +37,6 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           
       - name: Publish Package to GPR
-        run: npm publish -provenance
+        run: npm publish --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
