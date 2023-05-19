@@ -30,6 +30,7 @@
 		"url": "https://github.com/sponsors/Malix-Off"
 	},
 	"devDependencies": {
-		"typescript": "^5.0.4"
+		"typescript": "^5.0.4",
+		"oop-utility": "file:"
 	}
 }
