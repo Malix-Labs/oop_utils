@@ -37,7 +37,7 @@ jobs:
       - name: Setup Node for GPR
         uses: actions/setup-node@v3
         with:
-          registry-url: 'https://npm.pkg.github.com'
+          registry-url: https://npm.pkg.github.com
           
       - name: Publish Package to GPR
         run: npm publish --provenance
