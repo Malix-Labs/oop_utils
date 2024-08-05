@@ -1,12 +1,11 @@
-import { bindObjectToItself } from "./classDecorator";
-import { Constructor } from "./constructor";
-import { SaferExperimentalClassDecoratorContext } from "./legacy.classDecorator";
+import { bindObjectToItself } from "./decorators";
+import { Constructor } from "./types";
 
 export interface IHierarchy {
 	[className: typeof Function.prototype.name]: IHierarchy | {};
 }
 
-export abstract class AbstractClassHierarchy<ParentClass extends Constructor, ChildClass extends ParentClass> {
+export class ClassHierarchy<ParentClass extends Constructor, ChildClass extends ParentClass> {
 	map: Map<ParentClass, Set<ChildClass>> = new Map();
 
 	constructor() {
@@ -16,14 +15,16 @@ export abstract class AbstractClassHierarchy<ParentClass extends Constructor, Ch
 	/**
 	 * @decorator
 	 */
-	abstract register(target: ClassDecoratorContext | SaferExperimentalClassDecoratorContext): void;
+	register(_target: ClassDecoratorContext): void {
+
+	}
 
 	static isChild(target: Constructor): boolean {
 		return Object.getPrototypeOf(target) !== Function.prototype;
 	}
 
 	static parentOf(target: Constructor): Constructor | null {
-		return AbstractClassHierarchy.isChild(target) ? (Object.getPrototypeOf(target) as Constructor) : null;
+		return ClassHierarchy.isChild(target) ? (Object.getPrototypeOf(target) as Constructor) : null;
 	}
 
 	childsOf(target: ParentClass): Set<ChildClass> | undefined {
@@ -71,8 +72,4 @@ export abstract class AbstractClassHierarchy<ParentClass extends Constructor, Ch
 			[parent.name]: truc ? this.recursiveChildsOf(new Map(this.map), truc) : {},
 		} as IHierarchy;
 	}
-}
-
-export class ClassHierarchy<ParentClass extends Constructor, ChildClass extends ParentClass> extends AbstractClassHierarchy<ParentClass, ChildClass> {
-	register(target: ClassDecoratorContext): void {}
 }
